@@ -7,3 +7,5 @@ scikit-learn>=1.7
 joblib>=1.5
 cloudpickle>=3.0
 ipykernel>=6.29
+xgboost>=3.0
+lightgbm>=4.0
