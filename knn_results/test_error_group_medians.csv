@@ -1,0 +1,4 @@
+error_type,Administrative,Administrative_Duration,Informational,Informational_Duration,ProductRelated,ProductRelated_Duration,BounceRates,ExitRates,PageValues,SpecialDay
+correct,1.0,0.0,0.0,0.0,17.0,527.31666665,0.003333333,0.026666667,0.0,0.0
+false_negative,3.0,76.34166666499999,0.0,0.0,37.0,1403.3926945,0.0025986065,0.0206223525,2.88623705,0.0
+false_positive,3.0,54.83333333,0.0,0.0,29.0,1067.795238,0.001459854,0.016666667,23.51024736,0.0

@@ -1,0 +1,10 @@
+,family,feature configuration,engineered,dropped,rare grouping,AP mean,AP SD,Train AP,AP iteration 1,change vs iteration 1
+Random forest,bagged trees,3b selection + rare grouping,False,"OperatingSystems, Browser, Region",True,0.7452332803249454,0.023546705315846354,1.0,0.740396451384996,0.004836828939949411
+LightGBM,boosted trees,2 +engineered,True,-,False,0.7404240803078225,0.02471763885470323,0.9792714923709772,0.7401972570700804,0.0002268232377420354
+Neural network (MLP),neural network,3a selection,False,"Informational_Duration, SpecialDay, OperatingSystems, Region",False,0.7399875869183948,0.032514664480452864,0.7803164671527998,0.7248450299774112,0.015142556940983654
+SVM (RBF),kernel,3b selection + rare grouping,False,"Administrative_Duration, OperatingSystems, Region",True,0.7288736104676135,0.024040080576254206,0.7972192945765033,0.7168610833582724,0.012012527109341087
+XGBoost,boosted trees,3a selection,True,OperatingSystems,False,0.7235154287602918,0.02358186965810155,0.999109972473469,0.715596959309254,0.007918469451037802
+KNN,instance-based,3b selection + rare grouping,False,"Informational_Duration, OperatingSystems, Browser, Region",True,0.7233834276532795,0.027480236286778186,1.0,0.7067888056569831,0.016594621996296355
+Logistic regression,linear,3a selection,False,"Informational, ProductRelated, ProductRelated_Duration, Region, Weekend",False,0.68459059037978,0.01157653640256922,0.6946309631672769,0.6836003457949877,0.0009902445847922436
+Naive Bayes,probabilistic,3a selection,False,"Administrative, Administrative_Duration, Informational, Informational_Duration, ProductRelated, ProductRelated_Duration, Region",False,0.6595252687301588,0.013815181278864502,0.6648522315883427,0.5351272444118805,0.12439802431827829
+Decision tree,single tree,1 raw,False,-,False,0.38732684523774635,0.018477282768035893,1.0,0.38732684523774635,0.0
