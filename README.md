@@ -1,1 +1,1 @@
-# MGSC674-Group-Project-README.MD
+# MGSC674-Group-Project
