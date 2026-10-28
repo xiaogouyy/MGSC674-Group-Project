@@ -1,1 +1,1 @@
-# MGSC674-Group-Project
+# INSY674-Group-Project
