@@ -29,11 +29,12 @@
 ## Key results at a glance
 
 - **Final model:** a stacking ensemble of four tuned models (random forest, XGBoost, KNN, LightGBM), combined by a logistic regression.
-- **Test set (used once):** **AP 0.763** (95% CI 0.722–0.804) and **ROC-AUC 0.938**, against **0.156** for random ranking (4.9× better) and **0.622** for the one-line rule "rank sessions by `PageValues`".
+- **Final model test performance:** **AP 0.763** (95% CI: 0.722–0.804) and **ROC-AUC 0.938**. Although the final model was selected using cross-validation, the test set had also been evaluated in earlier individual-model experiments, so these results should be interpreted with caution.
+
 - At the threshold chosen on training data (0.36), the model **finds 70% of buyers (269 of 382)**, and **69% of the sessions it flags actually buy**. It raises 123 false alarms, against 233 for the `PageValues` rule.
-- The 15-fold CV estimate (**0.757 ± 0.013**) is close to the test score, so the estimate is reliable.
+- **Cross-validation consistency:** The repeated cross-validation estimate (**AP 0.757 ± 0.013**, across 3 × 5 folds) is close to the reported test performance (**AP 0.763**). This agreement is encouraging, but it does not eliminate potential bias from earlier test-set exposure.
 - **"`PageValues` is the number-one predictor of purchase; after it, the month and the exit rate matter most."** This holds for every model we trained.
-- **Main caveat:** `PageValues` may partly reflect the purchases themselves. Without it, CV AP falls to **0.383**. All results are an offline, whole-session benchmark, not yet a real-time system.
+- **Main caveat:** Model performance depends heavily on `PageValues`, which may contain information closely related to purchase outcomes. Removing this feature reduces cross-validation AP from **0.758 to 0.383**. Therefore, the reported performance should be interpreted as an **offline, whole-session benchmark**, rather than evidence of real-time prediction capability.
 
 ---
 
@@ -88,7 +89,11 @@ jupyter lab        # or open the notebooks in VS Code / Google Colab
 ## 1. Frame the problem and look at the big picture
 
 ### Objective
-Online retailers see many visitors but few buyers. Our goal is to **identify sessions with high purchase intent** so that e-commerce and marketing teams can prioritise who to target (for example, sending a discount or live-chat prompt only to the 10% of sessions most likely to buy) and understand **which browsing behaviours signal purchase intent**.
+Online retailers receive large volumes of website traffic, but only a small proportion of browsing sessions result in purchases. Our objective is to **predict whether an online shopping session will result in a purchase** and identify **which browsing behaviours are most predictive of conversion**.
+
+By identifying sessions with higher purchase propensity, our models can support **customer behaviour analysis, segmentation, and marketing prioritisation**. For example, retailers can analyse the top 10% of sessions ranked by predicted purchase probability to better understand high-intent shopping behaviour.
+
+Since the dataset contains complete-session information, this project focuses on **offline purchase prediction**, rather than real-time customer targeting. Real-time personalised offers would require additional data and validation.
 
 ### Who uses the solution and how
 - **Marketing / CRM teams** use the model's scores to rank sessions and spend a fixed outreach budget on the most promising ones.
