@@ -37,17 +37,5 @@
     "rare": false,
     "cv_ap": 0.7404240803078225,
     "cv_ap_sd": 0.02471763885470323
-  },
-  "Neural network (MLP)": {
-    "engineered": false,
-    "drop": [
-      "Informational_Duration",
-      "SpecialDay",
-      "OperatingSystems",
-      "Region"
-    ],
-    "rare": false,
-    "cv_ap": 0.7399875869183948,
-    "cv_ap_sd": 0.032514664480452864
   }
 }
