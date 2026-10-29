@@ -1,6 +1,6 @@
 # Predicting Online Purchase Intention
 
-**McGill INSY 674 · Fall 2026 · Group Project**
+**INSY 674 · Fall 2026 · Group Project**
 
 > Can we predict, from browsing behaviour, whether an online shopping session ends in a purchase, and which behaviours matter most?
 
@@ -16,13 +16,13 @@
 
 | Name | GitHub ID | Main contribution |
 |---|---|---|
-| `TODO` | [@VincentWang35](https://github.com/VincentWang35) | EDA, feature engineering, train/test split |
-| Yorkin Ma | [@Yorkinpp](https://github.com/Yorkinpp) | Logistic regression |
-| Eric Sun | `TODO` | K-nearest neighbours, random forest |
-| `TODO` | [@YanjieGu20](https://github.com/YanjieGu20) | Naive Bayes, XGBoost, LightGBM |
-| Yangyang Liu | [@xiaogouyy](https://github.com/xiaogouyy) | Model comparison, fine-tuning, ensembles |
-| `TODO` | [@hazelmok704-cloud](https://github.com/hazelmok704-cloud) | README, slides |
-| `TODO` | `TODO` | `TODO` |
+| Wang, Vincent | [@VincentWang35](https://github.com/VincentWang35) | EDA, feature engineering, train/test split |
+| Ma, Yorkin | [@Yorkinpp](https://github.com/Yorkinpp) | Logistic regression |
+| Sun, Eric | [@Eric0730-04] | K-nearest neighbours, random forest |
+| Gu, Yanjie | [@YanjieGu20](https://github.com/YanjieGu20) | Naive Bayes, XGBoost, LightGBM |
+| Liu, Yangyang | [@xiaogouyy](https://github.com/xiaogouyy) | Model comparison, fine-tuning, ensembles |
+| Mo, Yidi | [@hazelmok704-cloud](https://github.com/hazelmok704-cloud) | README, slides |
+| Xu, Weiwei | [@weiweicathy] | README, slides |
 
 ---
 
