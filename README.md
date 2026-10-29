@@ -1,6 +1,6 @@
 # Predicting Online Purchase Intention
 
-**McGill INSY 674 · Fall 2026 · Group Project**
+**INSY 674 · Fall 2026 · Group Project**
 
 > Can we predict, from browsing behaviour, whether an online shopping session ends in a purchase, and which behaviours matter most?
 
@@ -19,10 +19,10 @@
 | Yanjie Gu | [@YanjieGu20](https://github.com/YanjieGu20) | Naive Bayes, XGBoost, LightGBM |
 | Yangyang Liu | [@xiaogouyy](https://github.com/xiaogouyy) | Model comparison, fine-tuning, ensembles |
 | Yorkin Ma | [@Yorkinpp](https://github.com/Yorkinpp) | Logistic regression |
-| Yidi Mo | [@hazelmok704-cloud](https://github.com/hazelmok704-cloud) | README, slides |
+| Yidi Mo | [@hazelmok704-cloud](https://github.com/hazelmok704-cloud) | Technical documentation (README); results synthesis across notebooks |
 | Eric Sun | [@Eric0730-04](https://github.com/Eric0730-04) | K-nearest neighbours, random forest |
 | Vincent Wang | [@VincentWang35](https://github.com/VincentWang35) | EDA, feature engineering, train/test split |
-| Weiwei Xu | [@weiweicathy](https://github.com/weiweicathy) | `TODO` |
+| Weiwei Xu | [@weiweicathy](https://github.com/weiweicathy) | Business framing, objectives, and assumptions & limitations |
 
 ---
 
