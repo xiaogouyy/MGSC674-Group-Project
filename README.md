@@ -70,8 +70,8 @@
 ## How to run
 
 ```bash
-git clone https://github.com/xiaogouyy/MGSC674-Group-Project.git
-cd MGSC674-Group-Project
+git clone https://github.com/xiaogouyy/Predicting-Online-Purchase-Intention.git
+cd Predicting-Online-Purchase-Intention
 pip install -r requirements.txt
 jupyter lab        # or open the notebooks in VS Code / Google Colab
 ```
@@ -81,7 +81,7 @@ jupyter lab        # or open the notebooks in VS Code / Google Colab
 - `fine_tuning_models.ipynb` runs several random searches and takes about 25 minutes on a laptop.
 - `fine_tuning_models.ipynb` is the **only** notebook in the final pipeline that reads `test_raw.csv`, in one guarded cell at the end.
 
-> **Note:** the EDA notebook imports `session_preprocessing.py` and reads the original `data/raw/online_shoppers_intention.csv`. `TODO: add both files to the repo so the EDA notebook can be re-run.`
+> **Note:** the EDA notebook was run on the original UCI file (`data/raw/online_shoppers_intention.csv`) with a helper module (`session_preprocessing.py`). All its results are saved in the notebook outputs, and the split it produced is saved as `train_raw.csv` / `test_raw.csv`, which every modelling notebook uses. To re-run the EDA itself, download the dataset from the [UCI page](https://archive.ics.uci.edu/dataset/468/online+shoppers+purchasing+intention+dataset) into `data/raw/`.
 
 ---
 
