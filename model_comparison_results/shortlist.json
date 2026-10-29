@@ -1,0 +1,53 @@
+{
+  "Random forest": {
+    "engineered": false,
+    "drop": [
+      "OperatingSystems",
+      "Browser",
+      "Region"
+    ],
+    "rare": true,
+    "cv_ap": 0.7452332803249454,
+    "cv_ap_sd": 0.023546705315846354
+  },
+  "XGBoost": {
+    "engineered": true,
+    "drop": [
+      "OperatingSystems"
+    ],
+    "rare": false,
+    "cv_ap": 0.7235154287602918,
+    "cv_ap_sd": 0.02358186965810155
+  },
+  "KNN": {
+    "engineered": false,
+    "drop": [
+      "Informational_Duration",
+      "OperatingSystems",
+      "Browser",
+      "Region"
+    ],
+    "rare": true,
+    "cv_ap": 0.7233834276532795,
+    "cv_ap_sd": 0.027480236286778186
+  },
+  "LightGBM": {
+    "engineered": true,
+    "drop": [],
+    "rare": false,
+    "cv_ap": 0.7404240803078225,
+    "cv_ap_sd": 0.02471763885470323
+  },
+  "Neural network (MLP)": {
+    "engineered": false,
+    "drop": [
+      "Informational_Duration",
+      "SpecialDay",
+      "OperatingSystems",
+      "Region"
+    ],
+    "rare": false,
+    "cv_ap": 0.7399875869183948,
+    "cv_ap_sd": 0.032514664480452864
+  }
+}

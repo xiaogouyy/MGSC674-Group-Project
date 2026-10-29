@@ -1,0 +1,8 @@
+,before,after
+KNN,"k=75, weights=distance, p=2","k=65, weights=distance, p=2"
+Logistic regression (no PageValues),"C=0.03, l1_ratio=0.5 (elastic net), class_weight=None","C=0.0548, l1_ratio=0.1, class_weight=None"
+Logistic regression (with PageValues),"C=0.03, l1_ratio=0 (L2), class_weight=None","C=0.0306, l1_ratio=0.0, class_weight=None"
+Naive Bayes,"n_bins=10, alpha=2.0","n_bins=10, alpha=3.0"
+Random forest,"240 trees, max_depth=10, min_samples_leaf=6, max_features=0.7, class_weight=None","min_samples_leaf=10, max_samples=0.9, max_features=0.3, max_depth=10, criterion=entropy, class_weight=None, n_estimators=500"
+XGBoost,"n_estimators=200, learning_rate=0.03, max_depth=5, min_child_weight=3, gamma=0.1, subsample=1.0, colsample_bytree=0.6, reg_alpha=1, reg_lambda=5, scale_pos_weight=1","colsample_bytree=0.9961, gamma=0.5278, max_depth=5, min_child_weight=2.3993, reg_alpha=0.02, reg_lambda=15.558, scale_pos_weight=2.32, subsample=0.8721, learning_rate=0.01, n_estimators=600"
+LightGBM,"n_estimators=200, learning_rate=0.03, num_leaves=31, max_depth=8, min_child_samples=20, subsample=1.0, colsample_bytree=0.7, reg_alpha=1, reg_lambda=5, scale_pos_weight=1","colsample_bytree=0.9576, max_depth=8, min_child_samples=50, min_split_gain=0.2989, num_leaves=18, reg_alpha=0.0023, reg_lambda=0.0531, scale_pos_weight=1.0, subsample=0.9806, learning_rate=0.01, n_estimators=300"

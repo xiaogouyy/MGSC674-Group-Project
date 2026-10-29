@@ -1,0 +1,7 @@
+{
+  "preprocess__skewed__log": "log1p",
+  "knn__weights": "distance",
+  "knn__p": 2,
+  "knn__n_neighbors": 75,
+  "features__engineered": false
+}

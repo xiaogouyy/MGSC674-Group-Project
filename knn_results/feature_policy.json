@@ -1,0 +1,25 @@
+{
+  "included_features": [
+    "Administrative",
+    "Administrative_Duration",
+    "Informational",
+    "Informational_Duration",
+    "ProductRelated",
+    "ProductRelated_Duration",
+    "BounceRates",
+    "ExitRates",
+    "PageValues",
+    "SpecialDay",
+    "Month",
+    "OperatingSystems",
+    "Browser",
+    "Region",
+    "TrafficType",
+    "VisitorType",
+    "Weekend"
+  ],
+  "excluded_features": [
+    "source_row_id"
+  ],
+  "prediction_scope": "offline whole-session benchmark; PageValues timing unverified"
+}

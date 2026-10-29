@@ -1,0 +1,47 @@
+{
+  "knn": {
+    "average_precision": 0.7126085992048674,
+    "roc_auc": 0.9158781902463707,
+    "accuracy": 0.8963539532978287,
+    "balanced_accuracy": 0.75093511057317,
+    "precision": 0.7279151943462897,
+    "recall": 0.5392670157068062,
+    "f1": 0.6195488721804512,
+    "tn_fp_fn_tp": [
+      1982,
+      77,
+      176,
+      206
+    ]
+  },
+  "majority_reference": {
+    "average_precision": 0.15649324047521507,
+    "roc_auc": 0.5,
+    "accuracy": 0.8435067595247849,
+    "balanced_accuracy": 0.5,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "tn_fp_fn_tp": [
+      2059,
+      0,
+      382,
+      0
+    ]
+  },
+  "training_oof_selected_parameters_optimistic": {
+    "average_precision": 0.7118526569438616,
+    "roc_auc": 0.9153435618017963,
+    "accuracy": 0.8930766079475625,
+    "balanced_accuracy": 0.7302752929953795,
+    "precision": 0.7353515625,
+    "recall": 0.49344692005242463,
+    "f1": 0.5905882352941176,
+    "tn_fp_fn_tp": [
+      7967,
+      271,
+      773,
+      753
+    ]
+  }
+}
