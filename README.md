@@ -224,6 +224,10 @@ Every model uses **5-fold stratified CV** (`StratifiedKFold(5, shuffle=True, ran
 - Logistic regression and naive Bayes have similar train and CV AP: they **underfit**; their model form is the limit.
 - Fold SDs are about 0.02, so gaps smaller than that are not meaningful.
 
+![Cross-validated AP of the six models](model_comparison_results/iteration1_cv.png)
+
+*All six models beat random ranking (dashed line, AP 0.156); the tree ensembles lead.*
+
 ### Most significant variables
 Permutation importance (drop in AP when one input is shuffled), averaged over the 5 validation folds:
 
@@ -317,6 +321,10 @@ Tuning mostly **reduced overfitting**. All four tuned models **dropped the engin
 
 The gain over the best single model is small (+0.003) because the tuned models' scores are highly correlated (Spearman 0.88–0.98). KNN, the least correlated member, is what lifts the four-model ensembles above the tree-only ones.
 
+![Final selection of all candidates on 15 fresh folds](fine_tuning_results/final_selection.png)
+
+*Tuning lifted every shortlisted model; stacking all four tuned models scored highest, slightly ahead of tuned XGBoost.*
+
 ### Final model: stacking ensemble
 A logistic regression combines the four tuned models' probabilities. It was refitted on all 9,764 training sessions, and the decision threshold (**0.36**, max F1 on out-of-fold predictions) was fixed before the test set was read.
 
@@ -340,12 +348,20 @@ A logistic regression combines the four tuned models' probabilities. It was refi
 | **Actual no purchase** | 1,936 | 123 |
 | **Actual purchase** | 113 | **269** |
 
+![Test confusion matrix, precision-recall and ROC curves](fine_tuning_results/final_test_curves.png)
+
+*On the held-out test set, the model (AP 0.76) beats the PageValues rule (AP 0.62) at almost every recall level.*
+
 - **Test AP 0.763 (95% bootstrap CI: 0.722–0.804)** is close to the repeated cross-validation estimate of **0.757 ± 0.013**. This agreement is encouraging, but the reported test performance should be interpreted cautiously because the test set was also evaluated in earlier experiments.
 - Compared with the `PageValues` rule, the model adds **+0.14 AP** and **halves the false alarms** (123 vs 233), at the cost of finding fewer buyers (70% vs 81%).
 - At a 0.5 threshold instead: precision 0.72, recall 0.66, F1 0.69. The right threshold depends on the cost of an offer versus the value of a sale.
 
 ### What drives the final model
 Permutation importance on a training validation fold: **`PageValues` 0.556**, `Month` 0.046, `ExitRates` 0.030, `BounceRates` 0.016, then product and administrative page counts. Region, browser, operating system and weekend contribute almost nothing.
+
+![Permutation importance of the final model](fine_tuning_results/final_permutation_importance.png)
+
+*PageValues is the number-one predictor of purchase; month and exit rate come next.*
 
 ### Sensitivity check: without `PageValues`
 
