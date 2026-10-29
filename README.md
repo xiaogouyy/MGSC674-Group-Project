@@ -1,12 +1,12 @@
 # Predicting Online Purchase Intention
 
-**INSY 674 · Fall 2026 · Group Project**
+**McGill INSY 674 · Fall 2026 · Group Project**
 
 > Can we predict, from browsing behaviour, whether an online shopping session ends in a purchase, and which behaviours matter most?
 
 | | |
 |---|---|
-| **Team** | `TODO: team name` |
+| **Team** | Group 3 |
 | **Dataset** | [Online Shoppers Purchasing Intention](https://archive.ics.uci.edu/dataset/468/online+shoppers+purchasing+intention+dataset) (UCI, Sakar & Kastro, 2018, CC BY 4.0) |
 | **Task** | Supervised binary classification (`Revenue`: 1 = purchase, 0 = no purchase) |
 | **Primary metric** | Average precision (AP, area under the precision-recall curve) |
@@ -16,13 +16,13 @@
 
 | Name | GitHub ID | Main contribution |
 |---|---|---|
-| Wang, Vincent | [@VincentWang35](https://github.com/VincentWang35) | EDA, feature engineering, train/test split |
-| Ma, Yorkin | [@Yorkinpp](https://github.com/Yorkinpp) | Logistic regression |
-| Sun, Eric | [@Eric0730-04] | K-nearest neighbours, random forest |
-| Gu, Yanjie | [@YanjieGu20](https://github.com/YanjieGu20) | Naive Bayes, XGBoost, LightGBM |
-| Liu, Yangyang | [@xiaogouyy](https://github.com/xiaogouyy) | Model comparison, fine-tuning, ensembles |
-| Mo, Yidi | [@hazelmok704-cloud](https://github.com/hazelmok704-cloud) | README, slides |
-| Xu, Weiwei | [@weiweicathy] | README, slides |
+| Yanjie Gu | [@YanjieGu20](https://github.com/YanjieGu20) | Naive Bayes, XGBoost, LightGBM |
+| Yangyang Liu | [@xiaogouyy](https://github.com/xiaogouyy) | Model comparison, fine-tuning, ensembles |
+| Yorkin Ma | [@Yorkinpp](https://github.com/Yorkinpp) | Logistic regression |
+| Yidi Mo | [@hazelmok704-cloud](https://github.com/hazelmok704-cloud) | README, slides |
+| Eric Sun | [@Eric0730-04](https://github.com/Eric0730-04) | K-nearest neighbours, random forest |
+| Vincent Wang | [@VincentWang35](https://github.com/VincentWang35) | EDA, feature engineering, train/test split |
+| Weiwei Xu | [@weiweicathy](https://github.com/weiweicathy) | `TODO` |
 
 ---
 
