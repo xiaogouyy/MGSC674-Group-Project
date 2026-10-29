@@ -77,10 +77,10 @@ pip install -r requirements.txt
 jupyter lab        # or open the notebooks in VS Code / Google Colab
 ```
 
-- Every modelling notebook starts from `train_raw.csv` and `test_raw.csv`, which are already in the repo.
+- The modelling notebooks use `train_raw.csv` for training. Some individual-model notebooks also use `test_raw.csv` for exploratory evaluation, as acknowledged in Section 5.
 - `model_comparison.ipynb` writes `model_comparison_results/shortlist.json`, which `fine_tuning_models.ipynb` reads, so run them in that order.
 - `fine_tuning_models.ipynb` runs several random searches and takes about 25 minutes on a laptop.
-- `fine_tuning_models.ipynb` is the **only** notebook in the final pipeline that reads `test_raw.csv`, in one guarded cell at the end.
+- In the final modelling workflow, `fine_tuning_models.ipynb` performs the final test-set evaluation in a guarded cell at the end. Earlier test-set evaluations in individual-model notebooks are discussed in Section 5.
 
 > **Note:** the EDA notebook was run on the original UCI file (`data/raw/online_shoppers_intention.csv`) with a helper module (`session_preprocessing.py`). All its results are saved in the notebook outputs, and the split it produced is saved as `train_raw.csv` / `test_raw.csv`, which every modelling notebook uses. To re-run the EDA itself, download the dataset from the [UCI page](https://archive.ics.uci.edu/dataset/468/online+shoppers+purchasing+intention+dataset) into `data/raw/`.
 
@@ -96,13 +96,13 @@ By identifying sessions with higher purchase propensity, our models can support 
 Since the dataset contains complete-session information, this project focuses on **offline purchase prediction**, rather than real-time customer targeting. Real-time personalised offers would require additional data and validation.
 
 ### Who uses the solution and how
-- **Marketing / CRM teams** use the model's scores to rank sessions and spend a fixed outreach budget on the most promising ones.
+- **Marketing / CRM teams** can use the model's predictions to analyse high-purchase-intent sessions and inform future customer segmentation and marketing strategies. These insights may also support post-session retargeting and follow-up decisions.
 - **E-commerce / product analysts** use the feature-importance results to understand what separates buyers from browsers.
 
 ### Current solutions
 No incumbent model came with the data, so we compare against two reference points:
 - **Majority-class baseline** (predict "no purchase" for everyone): 84.4% accuracy, but it finds **zero** buyers. AP = 0.156.
-- **One-line rule "rank sessions by `PageValues`"**: test AP 0.622. A model has to beat this to be worth deploying.
+- **One-line rule "rank sessions by `PageValues`":** Test AP **0.622**. This serves as an **offline reference benchmark** for model comparison. However, because `PageValues` may contain information related to purchase outcomes, this benchmark does not establish whether a model is suitable for real-world deployment.
 
 ### Framing
 - **Supervised** learning: every session is labelled with `Revenue`.
@@ -122,11 +122,11 @@ Only **15.6%** of sessions end in a purchase, so accuracy is misleading (the do-
 *(Notebook: `Online_Purchase_Intention_EDA 3.0.ipynb`)*
 
 ### Dataset overview
-- **12,330 sessions**, **17 input features**, **1 target** (`Revenue`). Each row is one session over one year.
+- **Dataset size:** **12,330 raw sessions**, with **17 input features** and **1 target** (`Revenue`). Each row represents an online shopping session, and the dataset covers one year.
 - **No missing values**, no negative values, no out-of-range rates.
-- **125 exact duplicate rows** (all non-purchases) were removed **before** splitting, so the same record cannot appear in both training and test data. The removed rows were saved for audit.
+- **Duplicate removal:** **125 exact duplicate rows** (all non-purchases) were removed **before** the train/test split, leaving **12,205 sessions**. The removed rows were saved for audit.
 - **January and April are missing** from the data; they were not filled in.
-- **Purchase rate: 15.5%** (1,908 purchases), an **imbalanced** target.
+- **Purchase rate:** **15.47%** in the raw dataset (1,908 out of 12,330 sessions), increasing to **15.63%** after duplicate removal (1,908 out of 12,205 sessions). The target remains **imbalanced**.
 
 To avoid peeking at the test set, the **train/test split was made before any target-based exploration**. All statistics and plots below use the training set only.
 
@@ -192,7 +192,7 @@ To avoid peeking at the test set, the **train/test split was made before any tar
 ### Train/test split
 - **Stratified 80/20 split**, `random_state=42`, made once in the EDA notebook and saved as `train_raw.csv` / `test_raw.csv`.
 - Training: **9,764** sessions (15.63% purchases). Test: **2,441** sessions (15.65% purchases).
-- The test set is **not used** for any feature, tuning, model or threshold decision.
+- **Test-set handling:** In the final modelling workflow, model selection, hyperparameter tuning, ensemble selection and threshold optimisation were conducted using cross-validation on the training data. However, some individual-model notebooks and earlier experiments also evaluated the test set. Therefore, the reported test performance may be optimistic and should be interpreted with caution.
 
 ### Leak-free preprocessing pipeline
 All learned steps sit inside one scikit-learn `Pipeline`, so they are **refitted on the training part of each CV fold** and never see the validation or test rows.
@@ -297,7 +297,10 @@ The models largely make the **same** errors: random forest and LightGBM share 70
 | **Random forest** | 0.747 → **0.754** (+0.007) | 14/15 | Leaves of ≥ 20 sessions, `max_features` 0.3, 60% bootstrap samples, depth 10. Train AP 1.0 → 0.81. |
 | **LightGBM** | 0.745 → **0.752** (+0.006) | 11/15 | ≥ 100 sessions per leaf, `min_split_gain` 0.48, L1 penalty 2.6, learning rate 0.01 with 350 trees. |
 
+*Note: The "before" AP values in this table were evaluated on 15 fresh cross-validation folds, while the shortlist scores were reported in the earlier model comparison stage. Therefore, small differences may occur (e.g., XGBoost: 0.724 vs. 0.721).*
+
 Tuning mostly **reduced overfitting**. All four tuned models **dropped the engineered features**, and all three tree models chose rare-category grouping.
+
 
 ### Ensembles (15 fresh folds)
 
@@ -324,7 +327,7 @@ A logistic regression combines the four tuned models' probabilities. It was refi
 | KNN | 1.16 |
 | LightGBM | −0.19 (duplicates XGBoost; score correlation 0.98) |
 
-### Test-set evaluation (run once)
+### Final model test-set evaluation
 
 | Model | AP | ROC-AUC | Precision | Recall | F1 | False alarms |
 |---|---|---|---|---|---|---|
@@ -337,7 +340,7 @@ A logistic regression combines the four tuned models' probabilities. It was refi
 | **Actual no purchase** | 1,936 | 123 |
 | **Actual purchase** | 113 | **269** |
 
-- **Test AP 0.763 (95% bootstrap CI 0.722–0.804)** sits close to the 15-fold CV estimate of 0.757, so the model generalises to unseen sessions from the same period.
+- **Test AP 0.763 (95% bootstrap CI: 0.722–0.804)** is close to the repeated cross-validation estimate of **0.757 ± 0.013**. This agreement is encouraging, but the reported test performance should be interpreted cautiously because the test set was also evaluated in earlier experiments.
 - Compared with the `PageValues` rule, the model adds **+0.14 AP** and **halves the false alarms** (123 vs 233), at the cost of finding fewer buyers (70% vs 81%).
 - At a 0.5 threshold instead: precision 0.72, recall 0.66, F1 0.69. The right threshold depends on the cost of an offer versus the value of a sale.
 
@@ -358,7 +361,9 @@ Permutation importance on a training validation fold: **`PageValues` 0.556**, `M
 
 *(Individual models at iteration-1 settings, from `model_comparison.ipynb` §2.)*
 
-Without `PageValues`, the final model is still **2.5× better than random**, but half of its performance rests on this one variable. The no-`PageValues` figure is the most conservative estimate of what browsing behaviour alone can predict.
+*Note: The stacking AP of 0.758 reported in this sensitivity analysis is separate from the main repeated cross-validation estimate of 0.757 ± 0.013. Both values are cross-validation results, not test-set scores.*
+
+ Without `PageValues`, the final model is still **2.5× better than random**, but half of its performance rests on this one variable. The no-`PageValues` figure is the most conservative estimate of what browsing behaviour alone can predict.
 
 ---
 
@@ -367,7 +372,7 @@ Without `PageValues`, the final model is still **2.5× better than random**, but
 | Assumption or limitation | Likely impact | How to address it |
 |---|---|---|
 | **`PageValues` is available at prediction time and free of leakage.** It is not a copy of the outcome, but the page values were probably computed over the same period. | If it leaks, performance is overstated by about 2× (AP 0.76 vs 0.38). | Ask the data owner how and over which window page values were computed; rebuild them from an earlier period only; report the no-`PageValues` model as a lower bound. |
-| **The test set is not fully fresh.** Individual notebooks and earlier versions of the fine-tuning notebook also scored it. | Team decisions made with test results in view may make the test score slightly optimistic; the close match with CV (0.757 vs 0.763) suggests the effect is small. | Treat the CV estimate as the main number; confirm on a new sample, e.g. later sessions. |
+| **The test set is not fully fresh.** Individual-model notebooks and earlier versions of the fine-tuning notebook also evaluated it. | Earlier test-set exposure may introduce optimistic bias into the reported performance. The similarity between CV (0.757) and test AP (0.763) does not establish the size of this potential bias. | Treat cross-validation as the primary performance estimate and validate the final model on genuinely unseen future sessions. |
 | **Sessions are independent and representative of future traffic** (random split of one year; Jan and Apr missing). | Repeat visitors may appear in both splits, and seasonal patterns can shift, so future performance may be lower. | Validate by time (train on earlier months, test on later ones) and by user once IDs exist. |
 | **Features describe the complete session.** | The model can only score a session after it ends, so it cannot yet trigger an intervention during a visit. | Rebuild features from partial sessions (first n pages or minutes) using clickstream data. |
 | **The threshold maximises F1, not profit.** | Missed buyers and false alarms may not match the business optimum. | Set the threshold from the value of a purchase and the cost of an offer. |
@@ -381,7 +386,7 @@ Without `PageValues`, the final model is still **2.5× better than random**, but
 ## 6. What worked and what did not
 
 **Worked**
-- Splitting before EDA and fitting every preprocessing step inside CV folds kept the evaluation leak-free.
+- **Data splitting and cross-validation pipelines** reduced the risk of preprocessing leakage by fitting data transformations within the training portion of each CV fold. However, potential leakage associated with `PageValues` remains a limitation.
 - Using **AP instead of accuracy**: accuracy would have ranked a do-nothing model at 84%.
 - **Comparing all six models in one shared pipeline**, so differences reflect the models, not each notebook's own preprocessing.
 - **Per-model feature selection**, especially for naive Bayes (+0.124 AP) and KNN (+0.017).
