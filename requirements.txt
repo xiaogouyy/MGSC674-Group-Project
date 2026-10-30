@@ -9,3 +9,4 @@ cloudpickle>=3.0
 ipykernel>=6.29
 xgboost>=3.0
 lightgbm>=4.0
+jupyterlab>=4.0
