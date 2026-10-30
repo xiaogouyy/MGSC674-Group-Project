@@ -48,6 +48,7 @@
 ├── test_raw.csv                              ← shared held-out test split (2,441 sessions)
 │
 ├── Online_Purchase_Intention_EDA 3.0.ipynb   ← 1. data understanding, EDA, feature engineering, split
+├── session_preprocessing.py                  ←    helper module imported by the EDA notebook
 │
 ├── logistic_regression.ipynb                 ← 2. individual model notebooks (one per team member)
 ├── naive Bayes.ipynb
@@ -82,8 +83,7 @@ jupyter lab        # or open the notebooks in VS Code / Google Colab
 - `fine_tuning_models.ipynb` runs several random searches and takes about 25 minutes on a laptop.
 - In the final modelling workflow, `fine_tuning_models.ipynb` performs the final test-set evaluation in a guarded cell at the end. Earlier test-set evaluations in individual-model notebooks are discussed in Section 5.
 
-> **Note:** the EDA notebook was run on the original UCI file (`data/raw/online_shoppers_intention.csv`) with a helper module (`session_preprocessing.py`). All its results are saved in the notebook outputs, and the split it produced is saved as `train_raw.csv` / `test_raw.csv`, which every modelling notebook uses. To re-run the EDA itself, download the dataset from the [UCI page](https://archive.ics.uci.edu/dataset/468/online+shoppers+purchasing+intention+dataset) into `data/raw/`.
-
+> **Note:** the EDA notebook needs the original UCI file and the helper module `session_preprocessing.py` (included in this repo). To re-run it, download the dataset from the [UCI page](https://archive.ics.uci.edu/dataset/468/online+shoppers+purchasing+intention+dataset) and save it as `data/raw/online_shoppers_intention.csv`. The notebook writes its outputs to `data/processed/`, `figures/` and `tables/`; the split it produces is the same as `train_raw.csv` / `test_raw.csv` in the repo root, which every modelling notebook uses. You do not need to re-run the EDA to run the modelling notebooks.
 ---
 
 ## 1. Frame the problem and look at the big picture
